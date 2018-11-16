@@ -26,3 +26,7 @@ be there)
 ## Other Resources:
 GitHub Desktop is a really handy way of seeing what commits you are making, changing branches, and all the things
 that you don't really want to type in terminal so if you want to download that then go for it!
+
+## Questions
+Either create an issue so that we can respond or just message anyone, I'm sure all of us will be able to come up with
+something. 
