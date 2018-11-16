@@ -11,6 +11,12 @@ Info201 Final project repository
 - If you see that your pull request has merge conflicts __address them__ don't leave it alone.
 - Message in the chats (either slack or fb messenger) if you make any additions or send PR's.
 
+## Issues
+- When you take on new issues make sure to __assign yourself__ before starting that way nobody else is 
+working on it mistakenly assuming that nobody is on it. 
+- When creating new issues be sure to put __labels__ and a decent enough description on it that way
+the person working on it knows what to do.
+
 ## Pull Requests
 - Same with commit messages, keep your pull request descriptions clear and not ambiguous or vague.
 - After pushing your branch up to GitHub make pull requests from there (should typically pop up near
