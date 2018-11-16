@@ -1,7 +1,7 @@
 # CrimeVis
 Info201 Final project repository
 
-Link to the [dataset]("https://catalog.data.gov/dataset/crime-data-76bd0")
+Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 ## Ground Rules (Git collaboration)
 - Always make your commit messages meaningful and not ambiguous or vague.
 - Comment your code it helps when people review before merges.
