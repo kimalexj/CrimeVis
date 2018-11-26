@@ -5,9 +5,9 @@ Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 ## Ground Rules (Git collaboration)
 - Always make your commit messages meaningful and not ambiguous or vague.
 - Comment your code it helps when people review before merges.
-- Always work on a separate branch before changing any code. DO NOT work on master. 
+- Always work on a separate branch before changing any code. Avoid working on master. 
 `git branch` is a good way to check to see if you're on another branch before working
-(unless it is a small change that can be made on master but always check with someone first).
+(If it's a small change just use master but be sure to check in when you do and make sure no errors pop up).
 - `git pull` often just because changes are likely to occur quickly and address conflicts.
 - If you see that your pull request has merge conflicts __address them__ don't leave it alone.
 - Message in the chats (either slack or fb messenger) if you make any additions or send PR's.
