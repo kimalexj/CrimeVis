@@ -13,7 +13,7 @@ Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 - Message in the chats (either slack or fb messenger) if you make any additions or send PR's.
 
 ## Extra Dependencies
-- `install.packages("leaflet")
+- `install.packages("leaflet")`
 
 ## Issues
 - When you take on new issues make sure to __assign yourself__ before starting that way nobody else is 
