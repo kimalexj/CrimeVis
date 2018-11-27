@@ -12,6 +12,9 @@ Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 - If you see that your pull request has merge conflicts __address them__ don't leave it alone.
 - Message in the chats (either slack or fb messenger) if you make any additions or send PR's.
 
+## Extra Dependencies
+- `install.packages("leaflet")
+
 ## Issues
 - When you take on new issues make sure to __assign yourself__ before starting that way nobody else is 
 working on it mistakenly assuming that nobody is on it. 
