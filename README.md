@@ -14,6 +14,7 @@ Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 
 ## Extra Dependencies
 - `install.packages("leaflet")`
+- `install.packages("shinythemes")`
 
 ## Issues
 - When you take on new issues make sure to __assign yourself__ before starting that way nobody else is 
