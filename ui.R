@@ -20,16 +20,34 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
                            "DUI" = "DUI"))
       ),
       mainPanel(
-        
+        leafletOutput("main_map", height = 800)
       )
     ),
     
-    tabPanel("Crime Type"
-    
+    tabPanel("Crime Type",
+      column(4
+        #Data Table here Use (kable)
+      ),
+      column(8,
+        # Input plot call here
+        hr(),
+        fluidRow(
+          # Input paragraph here
+        )
+      )
     ),
     
-    tabPanel("Crime Trend"
-    
+    tabPanel("Crime Trend",
+      column(4
+      #Data Table here Use (kable)
+      ),
+      column(8,
+        # Input plot call here
+        hr(),
+        fluidRow(
+        # Input paragraph here
+        )
+      ) 
     ),
     
     tabPanel("Resources"
