@@ -9,9 +9,9 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
       sidebarPanel(
         # Validation necessary 
         textInput("neighborhoodEntry", label = h3("Search Neighborhood"), value = "Enter neighborhood here... "),
-        dateRangeInput("dateRange", label = h3("Date range")),
         selectInput("select", label = h3("Time"), choices = list("AM" = "Morning", "PM" = "Night", "Both" = "MornNight"), 
                     selected = "MornNight"),
+        dateRangeInput("dateRange", label = h3("Date range"), min = '2008-01-01', max = '2018-12-30'),
         checkboxGroupInput("filters", label = h3("Type Filter"), 
                            choices = list("Theft" = "THEFT", "Burglary" = "BURGLARY", "Narcotics" = "NARC",
                            "Tresspassing" = "TRESSPASS", "Vehicle" = "VEH", "Children Affiliated" = "CHILD", 
@@ -20,7 +20,7 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
                            "DUI" = "DUI"))
       ),
       mainPanel(
-        leafletOutput("main_map", height = 800)
+        leafletOutput("main_map", width = "100%", height = 800)
       )
     ),
     
