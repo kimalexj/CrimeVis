@@ -7,26 +7,35 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
              
     tabPanel("Home",
       sidebarPanel(
-        # Validation necessary 
+        # Validation "not necessarily for error" but to see if any crime was in the area 
         textInput("neighborhoodEntry", label = h3("Search Neighborhood"), value = "Enter neighborhood here... "),
-        selectInput("select", label = h3("Time"), choices = list("AM" = "Morning", "PM" = "Night", "Both" = "MornNight"), 
+        selectInput("select", label = h3("Time of Day"), choices = list("AM" = "Morning", "PM" = "Night", "Both" = "MornNight"), 
                     selected = "MornNight"),
-        dateRangeInput("dateRange", label = h3("Date range"), min = '2008-01-01', max = '2018-12-30'),
-        checkboxGroupInput("filters", label = h3("Type Filter"), 
-                           choices = list("Theft" = "THEFT", "Burglary" = "BURGLARY", "Narcotics" = "NARC",
-                           "Tresspassing" = "TRESSPASS", "Vehicle" = "VEH", "Children Affiliated" = "CHILD", 
-                           "Arson" = "ARSON", "Assault" = "ASSLT", "Rape" = "RAPE", "Sexual Offense" = "SEXOFF",
-                           "Homicide" = "HOMICIDE", "Prostitution" = "PROSTITUTION", "Obscene Material" = "PORNOGRAPHY",
-                           "DUI" = "DUI"))
+        column(6,
+          br(),
+          checkboxGroupInput("filters1", label = h3("Type Filter"), 
+                             choices = list("Theft" = "THEFT", "Burglary" = "BURGLARY", "Narcotics" = "NARC",
+                             "Tresspassing" = "TRESSPASS", "Vehicle" = "VEH", "Children Affiliated" = "CHILD", 
+                             "Arson" = "ARSON", "Assault" = "ASSLT", "Rape" = "RAPE"))
+        ),
+        column(6,
+          br(),
+          br(),
+          br(),
+          checkboxGroupInput("filters2", label = "", 
+                             choices = list("Sexual Offense" = "SEXOFF",
+                             "Homicide" = "HOMICIDE", "Prostitution" = "PROSTITUTION", "Obscene Material" = "PORNOGRAPHY",
+                             "DUI" = "DUI", "Robbery" = "ROBBERY", "Fraud" = "FRAUD", "Threats" = "THREATS"))       
+        )
       ),
       mainPanel(
-        leafletOutput("main_map", width = "100%", height = 800)
+        leafletOutput("main_map", width = 900, height = 675)
       )
     ),
     
-    tabPanel("Crime Type",
+    tabPanel("Crime Type History",
       column(4
-        #Data Table here Use (kable)
+        #Data Table here Use 
       ),
       column(8,
         # Input plot call here
@@ -37,7 +46,7 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
       )
     ),
     
-    tabPanel("Crime Trend",
+    tabPanel("Crime Trend History",
       column(4
       #Data Table here Use (kable)
       ),
