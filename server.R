@@ -11,8 +11,5 @@ shinyServer(function(input, output) {
       setView(lng = -122.3, lat = 47.6, zoom = 11) %>% 
       setMaxBounds(lng1 = -122.4, lng2 = -122.2, lat1 = 47.75, lat2 = 47.4)
   })
-  
-  output$example <- renderTable({
-    
-  })
+ 
 })
