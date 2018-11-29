@@ -11,7 +11,7 @@ Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 - `git pull` often just because changes are likely to occur quickly and address conflicts.
 - If you see that your pull request has merge conflicts __address them__ don't leave it alone.
 - Message in the chats (either slack or fb messenger) if you make any additions or send PR's.
-- Add any new .R files you create int the `scripts` directory just to keep things organized.
+- Add any new .R files you create into the `scripts` directory just to keep things organized.
 
 ## Extra Dependencies
 - `install.packages("leaflet")`
