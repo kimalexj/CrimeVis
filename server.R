@@ -6,6 +6,7 @@ library(ggplot2)
 library(stringr)
 library(RColorBrewer)
 library(colorRamps)
+library(DT)
 
 source('scripts/HomePageData.R')
 
@@ -76,4 +77,12 @@ shinyServer(function(input, output) {
       scale_y_continuous(limits = c(0, 600)) + theme(plot.title = element_text(face = "bold", size = 20)) +
       coord_flip()
   })
+  
+  output$crimeType <- DT::renderDataTable({
+    filtered_data <- large_map_set %>% select(Neighborhood, Occurred.Date, Occurred.Time,
+                                              Crime.Subcategory, Primary.Offense.Description)
+    DT::datatable(filtered_data, options = list(pageLength = 10)) %>% formatStyle(names(filtered_data))
+  })
+
+  
 })

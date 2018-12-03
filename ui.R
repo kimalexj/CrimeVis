@@ -2,7 +2,7 @@ library(shiny)
 library(leaflet)
 library(shinythemes)
 
-shinyUI(fluidPage(theme = shinytheme("darkly"),
+shinyUI(fluidPage(theme = shinytheme("sandstone"),
   navbarPage("CrimeVis",
              
     tabPanel("Home",
@@ -42,8 +42,11 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
     ),
     
     tabPanel("Crime Type History",
-      column(4
-        #Data Table here Use 
+      column(4,
+             
+        #Data Table here Use (kable)
+        DT::dataTableOutput("crimeType")
+
       ),
       column(8,
         # Input plot call here
