@@ -55,6 +55,7 @@ shinyServer(function(input, output) {
     validate(
       proper_neighborhood(input$neighborhoodEntry)
     )
+    large_map_set$Primary.Offense.Description <- sub("^$", "UNKNOWN", large_map_set$Primary.Offense.Description)
     filtered_neighborhood <- large_map_set %>% 
       filter(Neighborhood == input$neighborhoodEntry) %>% 
       select(Primary.Offense.Description)
