@@ -2,7 +2,7 @@ library(shiny)
 library(leaflet)
 library(shinythemes)
 
-shinyUI(fluidPage(theme = shinytheme("darkly"),
+shinyUI(fluidPage(theme = shinytheme("sandstone"),
   navbarPage("CrimeVis",
              
     tabPanel("Home",
@@ -67,8 +67,19 @@ shinyUI(fluidPage(theme = shinytheme("darkly"),
       ) 
     ),
     
-    tabPanel("Resources"
-    
+    tabPanel("Resources",
+      column(4
+        
+      ),
+      column(8,
+        fluidPage(
+          verticalLayout(
+            
+            hr()
+            
+          )
+        )
+      )
     )
     
   )
