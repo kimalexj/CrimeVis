@@ -76,4 +76,21 @@ shinyServer(function(input, output) {
       scale_y_continuous(limits = c(0, 600)) + theme(plot.title = element_text(face = "bold", size = 20)) +
       coord_flip()
   })
+  
+  output$crime_type_plot <- renderPlot({
+    colorCount = length(filtered_occurances$Primary.Offense.Description)
+    filtered_occurances <- group_by(large_map_set, Primary.Offense.Description) %>% summarise(count = n())
+    plot <- ggplot(filtered_occurances, aes(Primary.Offense.Description, count, fill = Primary.Offense.Description)) + geom_bar(stat = "identity") + 
+      ggtitle("Crime Types in The Greater Seattle Area") + theme(axis.text.x = element_text(size = 8, angle = 20),
+        plot.title = element_text(face = "bold", size = 20, hjust = +0.5))+ 
+      geom_text(aes(label=count), vjust = -0.55) + xlab("Crime Types") + ylab("Count") + 
+      scale_fill_manual(
+        values = colorRampPalette(brewer.pal(8, "Accent"))(colorCount), guide = guide_legend(ncol = 2))
+    print(plot)
+  })
+  
+  output$summaryText <- renderText({
+    paste0("The given graph plots the number of UFO sightings per day in the Country: ", input$countryInput, 
+           ", from ", input$timeInput[1], " to ", input$timeInput[2], ".")
+  })
 })
