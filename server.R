@@ -80,17 +80,21 @@ shinyServer(function(input, output) {
   output$crime_type_plot <- renderPlot({
     colorCount = length(filtered_occurances$Primary.Offense.Description)
     filtered_occurances <- group_by(large_map_set, Primary.Offense.Description) %>% summarise(count = n())
-    plot <- ggplot(filtered_occurances, aes(Primary.Offense.Description, count, fill = Primary.Offense.Description)) + geom_bar(stat = "identity") + 
-      ggtitle("Crime Types in The Greater Seattle Area") + theme(axis.text.x = element_text(size = 8, angle = 20),
-        plot.title = element_text(face = "bold", size = 20, hjust = +0.5))+ 
-      geom_text(aes(label=count), vjust = -0.55) + xlab("Crime Types") + ylab("Count") + 
-      scale_fill_manual(
-        values = colorRampPalette(brewer.pal(8, "Accent"))(colorCount), guide = guide_legend(ncol = 2))
+    plot <- ggplot(filtered_occurances, aes(Primary.Offense.Description, count, fill = Primary.Offense.Description)) + 
+      geom_bar(stat = "identity") + ggtitle("Crime Types in The Greater Seattle Area") + 
+      theme(axis.text.x = element_text(size = 8, angle = 20), plot.title = element_text(face = "bold", 
+                                                                                        size = 20, hjust = +0.5)) + 
+      geom_text(aes(label=count), vjust = -0.55) + xlab("Crime Types") + ylab("Count") + scale_fill_manual(
+        values = colorRampPalette(brewer.pal(8, "Accent"))(colorCount), guide = guide_legend(title = "Crime Types" , ncol = 2))
     print(plot)
   })
   
   output$summaryText <- renderText({
-    paste0("The given graph plots the number of UFO sightings per day in the Country: ", input$countryInput, 
-           ", from ", input$timeInput[1], " to ", input$timeInput[2], ".")
+    #filter <- filter(large_map_set, large_map_set$Occurred.Date)
+    paste("There has been an increase in the number of crimes committed in the last decade in the Greater Seattle Area.",
+          "In 2010, there were", 38000, "crimes commited while in 2017 there were", 44000, "crimes committed.", 
+          "When looking at the just the numbers, it may seem that the crime rate has increased significantly but",
+          "the population increase in Seattle may be the influence of the increase. In 2010 there were 610,000 people",
+          "living and that number increased to 725,000 in 2017. https://www.seattle.gov/police/information-and-data/crime-dashboard")
   })
 })
