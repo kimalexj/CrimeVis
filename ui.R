@@ -2,7 +2,7 @@ library(shiny)
 library(leaflet)
 library(shinythemes)
 
-shinyUI(fluidPage(theme = shinytheme("darkly"),
+shinyUI(fluidPage(theme = shinytheme("sandstone"),
   navbarPage("CrimeVis",
              
     tabPanel("Home",
