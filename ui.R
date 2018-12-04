@@ -84,17 +84,6 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
             strong("prostitution and child abuse "),"are close to being absolete. By educating ourselves on the crime 
             trends in our community we can enact change together and make our community a safer place to live."
             ,style = "font-family: 'times'; font-si20pt")
-          
-           
-              
-          
-             
-          
-          
-          
-          
-          
-          
         )
       ) 
     ),
