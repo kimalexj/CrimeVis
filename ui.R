@@ -1,7 +1,8 @@
 library(shiny)
 library(leaflet)
 library(shinythemes)
-
+CrimeList <- as.vector(unique(large_map_set$Primary.Offense.Description))
+CrimeList <- append(CrimeList, "ALL CRIME", 0)
 shinyUI(fluidPage(theme = shinytheme("sandstone"),
   navbarPage("CrimeVis",
              
@@ -59,9 +60,15 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
       ),
       column(8,
         # Input plot call here
+        plotOutput("trend_Plot"),
         hr(),
         fluidRow(
         # Input paragraph here
+          selectInput(
+            inputId = "crimechoice",
+            label = "Choose a type of Crime",
+            choices = CrimeList
+          )
         )
       ) 
     ),
