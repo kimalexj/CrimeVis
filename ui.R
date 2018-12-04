@@ -45,7 +45,7 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
       column(4,
              
         #Data Table here Use (kable)
-        DT::dataTableOutput("crimeType")
+        DT::dataTableOutput("crimeType", width = "100%")
 
       ),
       column(8,

@@ -79,11 +79,12 @@ shinyServer(function(input, output) {
   })
   
   output$crime_type_plot <- renderPlot({
-    colorCount = length(filtered_occurances$Primary.Offense.Description)
     filtered_occurances <- group_by(large_map_set, Primary.Offense.Description) %>% summarise(count = n())
+    colorCount = length(filtered_occurances$Primary.Offense.Description)
+    
     plot <- ggplot(filtered_occurances, aes(Primary.Offense.Description, count, fill = Primary.Offense.Description)) + 
-      geom_bar(stat = "identity") + ggtitle("Crime Types in The Greater Seattle Area") + 
-      theme(axis.text.x = element_text(size = 8, angle = 20), plot.title = element_text(face = "bold", 
+      geom_bar(stat = "identity", width = .5) + ggtitle("Crime Types in The Greater Seattle Area") + 
+      theme(axis.text.x = element_text(size = 6, angle = 20), plot.title = element_text(face = "bold", 
                                                                                         size = 20, hjust = +0.5)) + 
       geom_text(aes(label=count), vjust = -0.55) + xlab("Crime Types") + ylab("Count") + scale_fill_manual(
         values = colorRampPalette(brewer.pal(8, "Accent"))(colorCount), guide = guide_legend(title = "Crime Types" , ncol = 2))
@@ -104,7 +105,7 @@ shinyServer(function(input, output) {
   output$crimeType <- DT::renderDataTable({
     filtered_data <- large_map_set %>% select(Neighborhood, Occurred.Date, Occurred.Time,
                                               Crime.Subcategory, Primary.Offense.Description)
-    DT::datatable(filtered_data, options = list(pageLength = 10)) %>% formatStyle(names(filtered_data))
+    DT::datatable(filtered_data, options = list(pageLength = 10, scrollX = TRUE, scrollY = '450px')) %>% formatStyle(names(filtered_data))
   })
   
 })
