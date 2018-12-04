@@ -88,11 +88,14 @@ shinyServer(function(input, output) {
     number_of_s <- as.data.frame(table(map_plus_year$Year))
     names(number_of_s) = c("YearOfCrime", "Number_of_Crime")
     number_of_s$YearOfCrime <- as.numeric(as.character(number_of_s$YearOfCrime))
+    number_of_s <- number_of_s %>%
+      filter(YearOfCrime >= 2008)
     ggplot(number_of_s, aes(x = YearOfCrime, y = Number_of_Crime)) + geom_line() + geom_point() +
-      labs(title = paste0("Trendline for ", input$crimechoice))
+      labs(title = str_to_title(paste0("Trendline for ", input$crimechoice)), 
+           x = "Year", y = "Number of Reports")
   })
   output$table <- renderDataTable(data_config(), options = list(
-    scrollY = '700px', pageLength = 50)
+    scrollY = '700px', pageLength = 50,dom  = '<"top">lrt<"bottom">ip')
   
   )
   data_config <- reactive({
@@ -100,6 +103,7 @@ shinyServer(function(input, output) {
     data_reported <- as.Date(large_map_set$Reported.Date, format = "%m/%d/%Y")
     
   data2 <- large_map_set %>%
+    select(-Report.Number) %>%
     mutate(Occurred.Date = data_occurred) %>%
     mutate(Reported.Date = data_reported)
   
