@@ -49,10 +49,10 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
 
       ),
       column(8,
-        # Input plot call here
+        plotOutput("crime_type_plot", width = 800, height = 500),
         hr(),
         fluidRow(
-          # Input paragraph here
+          textOutput("summaryText")
         )
       )
     ),
