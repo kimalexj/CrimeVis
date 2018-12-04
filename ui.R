@@ -1,7 +1,8 @@
 library(shiny)
 library(leaflet)
 library(shinythemes)
-
+CrimeList <- as.vector(unique(large_map_set$Primary.Offense.Description))
+CrimeList <- append(CrimeList, "ALL CRIME", 0)
 shinyUI(fluidPage(theme = shinytheme("sandstone"),
   navbarPage("CrimeVis",
              
@@ -32,36 +33,68 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
                              selected = c("FRAUD", "THREATS", "FORGERY"))       
         )
       ),
-      mainPanel(
-        tabsetPanel(type = "tabs",
-          tabPanel("Primary Map", leafletOutput("main_map", width = 900, height = 600)),
-          tabPanel("Neighborhood Plot", plotOutput("neighborhoodType", width = 900, height = 600))
-        )
+    mainPanel(
+      tabsetPanel(type = "tabs",
+                  tabPanel("Primary Map", leafletOutput("main_map", width = 900, height = 600)),
+                  tabPanel("Neighborhood Plot", plotOutput("neighborhoodType", width = 900, height = 600))
       )
-    ),
+    )
+  ),
     
     tabPanel("Crime Type History",
-      column(4
-        #Data Table here Use 
-      ),
-      column(8,
-        # Input plot call here
-        hr(),
-        fluidRow(
-          # Input paragraph here
-        )
-      )
+    column(4
+           #Data Table here Use 
+    ),
+    column(8,
+           # Input plot call here
+           hr(),
+           fluidRow(
+             # Input paragraph here
+           )
+    )
     ),
     
-    tabPanel("Crime Trend History",
-      column(4
-      #Data Table here Use (kable)
+  tabPanel("Crime Trend History",
+    column(4,
+      dataTableOutput("table")
       ),
       column(8,
         # Input plot call here
+        plotOutput("trend_Plot"),
         hr(),
         fluidRow(
-        # Input paragraph here
+          selectInput(
+            inputId = "crimechoice",
+            label = "Choose a type of Crime",
+            choices = CrimeList
+          ),
+          p(" Crime in Seattle has noticeably increased throughout the years. 
+            Several ",a("sites", 
+              href =  "https://www.neighborhoodscout.com/wa/seattle/crime"),
+            " have stated that 98% of the cities in the United States are safer 
+            than Seattle. Therefore, it is important for us to see what crimes 
+            are contributing to the rate of reports in Seattle over time. 
+            As the trendline above represents, the ", strong("general crime "),"as a whole has decreased by ",
+            strong("several thousand "),"reports in the recent years. Due to the ",
+            a("increased security and extra police force, ", 
+              href = "https://www.king5.com/article/news/local/seattle-mayors-59-billion-budget-would-pay-for-40-additional-police-officers/281-597660900"),
+            "crimes such as ",strong("theft, burglary, narcotics, and grand theft auto "),
+            "are all decreasing. Unfortunately, crimes such as ",strong("rape, assault, and homicide"),
+            "are either staying stagnant or increasing. It is also interesting to note that crimes such as ",
+            strong("prostitution and child abuse "),"are close to being absolete. By educating ourselves on the crime 
+            trends in our community we can enact change together and make our community a safer place to live."
+            ,style = "font-family: 'times'; font-si20pt")
+          
+           
+              
+          
+             
+          
+          
+          
+          
+          
+          
         )
       ) 
     ),
@@ -70,5 +103,5 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
     
     )
     
-  )
+    )
 ))

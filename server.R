@@ -6,7 +6,7 @@ library(ggplot2)
 library(stringr)
 library(RColorBrewer)
 library(colorRamps)
-
+library(lubridate)
 source('scripts/HomePageData.R')
 
 # Validation for Neighborhood input
@@ -40,13 +40,13 @@ shinyServer(function(input, output) {
         addMarkers(~longitude, ~latitude)
     } else {
       leaflet(data = frequency_per_neighborhood, options = leafletOptions(zoomControl = FALSE, minZoom = 11, maxZoom = 15)) %>% 
-      addTiles() %>% 
-      setView(lng = -122.3, lat = 47.6, zoom = 11) %>% 
-      setMaxBounds(lng1 = -122.4, lng2 = -122.2, lat1 = 47.8, lat2 = 47.4) %>% 
-      addCircleMarkers(
-        lat = ~latitude, lng = ~longitude, popup = ~htmlEscape(neighborhoods), stroke = FALSE, fillOpacity = 0.6,
-        fillColor = "#004d99", radius = ~reports / 1000 * 1.5
-      ) 
+        addTiles() %>% 
+        setView(lng = -122.3, lat = 47.6, zoom = 11) %>% 
+        setMaxBounds(lng1 = -122.4, lng2 = -122.2, lat1 = 47.8, lat2 = 47.4) %>% 
+        addCircleMarkers(
+          lat = ~latitude, lng = ~longitude, popup = ~htmlEscape(neighborhoods), stroke = FALSE, fillOpacity = 0.6,
+          fillColor = "#004d99", radius = ~reports / 1000 * 1.5
+        ) 
     }
   })
   
@@ -76,5 +76,33 @@ shinyServer(function(input, output) {
       theme(axis.title.y = element_text(face = "bold", size = 16, vjust = 2)) + 
       scale_y_continuous(limits = c(0, 600)) + theme(plot.title = element_text(face = "bold", size = 20)) +
       coord_flip()
+  })
+  output$trend_Plot <- renderPlot({
+    if(input$crimechoice != "ALL CRIME"){
+      crime_frame <- filter(large_map_set, Primary.Offense.Description == input$crimechoice)
+    }
+    else{
+      crime_frame <- large_map_set
+    }
+    map_plus_year <- mutate(crime_frame,"Year" = year(mdy(Reported.Date)))
+    number_of_s <- as.data.frame(table(map_plus_year$Year))
+    names(number_of_s) = c("YearOfCrime", "Number_of_Crime")
+    number_of_s$YearOfCrime <- as.numeric(as.character(number_of_s$YearOfCrime))
+    ggplot(number_of_s, aes(x = YearOfCrime, y = Number_of_Crime)) + geom_line() + geom_point() +
+      labs(title = paste0("Trendline for ", input$crimechoice))
+  })
+  output$table <- renderDataTable(data_config(), options = list(
+    scrollY = '700px', pageLength = 50)
+  
+  )
+  data_config <- reactive({
+    data_occurred <- as.Date(large_map_set$Occurred.Date, format = "%m/%d/%Y")
+    data_reported <- as.Date(large_map_set$Reported.Date, format = "%m/%d/%Y")
+    
+  data2 <- large_map_set %>%
+    mutate(Occurred.Date = data_occurred) %>%
+    mutate(Reported.Date = data_reported)
+  
+  data2
   })
 })
