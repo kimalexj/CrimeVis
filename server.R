@@ -40,13 +40,13 @@ shinyServer(function(input, output) {
         addMarkers(~longitude, ~latitude)
     } else {
       leaflet(data = frequency_per_neighborhood, options = leafletOptions(zoomControl = FALSE, minZoom = 11, maxZoom = 15)) %>% 
-      addTiles() %>% 
-      setView(lng = -122.3, lat = 47.6, zoom = 11) %>% 
-      setMaxBounds(lng1 = -122.4, lng2 = -122.2, lat1 = 47.8, lat2 = 47.4) %>% 
-      addCircleMarkers(
-        lat = ~latitude, lng = ~longitude, popup = ~htmlEscape(neighborhoods), stroke = FALSE, fillOpacity = 0.6,
-        fillColor = "#004d99", radius = ~reports / 1000 * 1.5
-      ) 
+        addTiles() %>% 
+        setView(lng = -122.3, lat = 47.6, zoom = 11) %>% 
+        setMaxBounds(lng1 = -122.4, lng2 = -122.2, lat1 = 47.8, lat2 = 47.4) %>% 
+        addCircleMarkers(
+          lat = ~latitude, lng = ~longitude, popup = ~htmlEscape(neighborhoods), stroke = FALSE, fillOpacity = 0.6,
+          fillColor = "#004d99", radius = ~reports / 1000 * 1.5
+        ) 
     }
   })
   
@@ -76,4 +76,20 @@ shinyServer(function(input, output) {
       scale_y_continuous(limits = c(0, 600)) + theme(plot.title = element_text(face = "bold", size = 20)) +
       coord_flip()
   })
+  output$table <- renderDataTable(data_config(), options = list(
+    scrollY = '700px', pageLength = 50)
+  
+  )
+  data_config <- reactive({
+    data_occurred <- as.Date(large_map_set$Occurred.Date, format = "%m/%d/%Y")
+    data_reported <- as.Date(large_map_set$Reported.Date, format = "%m/%d/%Y")
+    
+  data2 <- large_map_set %>%
+    mutate(Occurred.Date = data_occurred) %>%
+    mutate(Reported.Date = data_reported)
+  
+  data2
+  })
+  
+
 })
