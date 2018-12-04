@@ -6,7 +6,7 @@ library(ggplot2)
 library(stringr)
 library(RColorBrewer)
 library(colorRamps)
-
+library(lubridate)
 source('scripts/HomePageData.R')
 
 # Validation for Neighborhood input
@@ -76,6 +76,19 @@ shinyServer(function(input, output) {
       scale_y_continuous(limits = c(0, 600)) + theme(plot.title = element_text(face = "bold", size = 20)) +
       coord_flip()
   })
+  output$trend_Plot <- renderPlot({
+    if(input$crimechoice != "ALL CRIME"){
+      crime_frame <- filter(large_map_set, Primary.Offense.Description == input$crimechoice)
+    }
+    else{
+      crime_frame <- large_map_set
+    }
+    map_plus_year <- mutate(crime_frame,"Year" = year(mdy(Reported.Date)))
+    number_of_s <- as.data.frame(table(map_plus_year$Year))
+    names(number_of_s) = c("YearOfCrime", "Number_of_Crime")
+    number_of_s$YearOfCrime <- as.numeric(as.character(number_of_s$YearOfCrime))
+    ggplot(number_of_s, aes(x = YearOfCrime, y = Number_of_Crime)) + geom_line() + geom_point()
+  })
   output$table <- renderDataTable(data_config(), options = list(
     scrollY = '700px', pageLength = 50)
   
@@ -90,6 +103,4 @@ shinyServer(function(input, output) {
   
   data2
   })
-  
-
 })
