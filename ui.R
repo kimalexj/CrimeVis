@@ -80,7 +80,7 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
               "are either staying stagnant or increasing. It is also interesting to note that crimes such as ",
               strong("prostitution and child abuse "),"are close to being absolete. By educating ourselves on the crime 
               trends in our community we can enact change together and make our community a safer place to live."
-              ,style = "font-family: 'times'; font-size: 18px"),
+              ,style = "font-family: 'times'; font-size: 15px"),
             hr(),
             dataTableOutput("table")
           )
