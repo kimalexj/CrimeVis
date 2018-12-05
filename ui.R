@@ -70,8 +70,10 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
       ) 
     ),
     
-    tabPanel("Resources"
-    
+    tabPanel("Resources",
+      fluidRow(
+        textOutput("resourcesText")
+      )
     )
     
   )
