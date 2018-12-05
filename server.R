@@ -87,12 +87,15 @@ shinyServer(function(input, output) {
     map_plus_year <- mutate(crime_frame,"Year" = year(mdy(Reported.Date)))
     number_of_s <- as.data.frame(table(map_plus_year$Year))
     names(number_of_s) = c("YearOfCrime", "Number_of_Crime")
-    number_of_s$YearOfCrime <- as.numeric(as.character(number_of_s$YearOfCrime))
+    number_of_s$YearOfCrime <- as.integer(as.character(number_of_s$YearOfCrime))
     number_of_s <- number_of_s %>%
       filter(YearOfCrime >= 2008)
     ggplot(number_of_s, aes(x = YearOfCrime, y = Number_of_Crime)) + geom_line() + geom_point() +
       labs(title = str_to_title(paste0("Trendline for ", input$crimechoice)), 
-           x = "Year", y = "Number of Reports")
+           x = "Year", y = "Number of Reports") + 
+      theme(plot.title = element_text(face = "bold", size = 20)) +
+      theme(axis.title.x = element_text(face = "bold", size = 16, vjust = -2)) + 
+      theme(axis.title.y = element_text(face = "bold", size = 16, vjust = 3)) 
   })
   output$table <- renderDataTable(data_config(), options = list(
     scrollY = '700px', pageLength = 50,dom  = '<"top">lrt<"bottom">ip')
