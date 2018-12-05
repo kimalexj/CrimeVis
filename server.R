@@ -136,10 +136,11 @@ shinyServer(function(input, output) {
       theme(axis.title.x = element_text(face = "bold", size = 16, vjust = -2)) + 
       theme(axis.title.y = element_text(face = "bold", size = 16, vjust = 3)) 
   })
+  
   output$table <- renderDataTable(data_config(), options = list(
     scrollY = '700px', pageLength = 50,dom  = '<"top">lrt<"bottom">ip')
-  
   )
+  
   data_config <- reactive({
     data_occurred <- as.Date(large_map_set$Occurred.Date, format = "%m/%d/%Y")
     data_reported <- as.Date(large_map_set$Reported.Date, format = "%m/%d/%Y")

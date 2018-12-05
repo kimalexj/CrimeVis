@@ -139,7 +139,8 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
               tags$li("Interactive map that pinpoints the most recently reported crime in the past 48 hours."),
               tags$li("Additional map that visually displays the quantity of crime reported in given neighborhoods of Seattle."),
               tags$h4(style = "text-decoration: underline", "Crime Type Page"),
-              
+              tags$li("Plotted distribution of the total number of different crimes and their report frequency."),
+              tags$li("An additional data table on the left hand column to provide a more specific report access to the user."),
               tags$h4(style = "text-decoration: underline", "Crime Trend Page"),
               tags$li("Interactive line plot that displays the trend of reports of specific types of crimes over time."),
               tags$li("Data table provided for user reference for tracking specific reports")
