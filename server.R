@@ -139,7 +139,7 @@ shinyServer(function(input, output) {
   })
   
   output$table <- renderDataTable(data_config(), options = list(
-    scrollY = '700px', pageLength = 50,dom  = '<"top">lrt<"bottom">ip')
+    scrollY = '450px', pageLength = 10, scrollX = TRUE)
   )
   
   data_config <- reactive({
