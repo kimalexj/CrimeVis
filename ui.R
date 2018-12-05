@@ -3,8 +3,10 @@ library(leaflet)
 library(shinythemes)
 library(lubridate)
 
+
 CrimeList <- as.vector(unique(large_map_set$Primary.Offense.Description))
 CrimeList <- append(CrimeList, "ALL CRIME", 0)
+
 shinyUI(fluidPage(theme = shinytheme("sandstone"),
   navbarPage("CrimeVis",
              
@@ -44,16 +46,19 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
   ),
     
     tabPanel("Crime Type History",
-    column(4
-           #Data Table here Use 
-    ),
-    column(8,
-           # Input plot call here
-           hr(),
-           fluidRow(
-             # Input paragraph here
-           )
-    )
+      column(4,
+             
+        #Data Table here Use (kable)
+        DT::dataTableOutput("crimeType", width = "100%")
+
+      ),
+      column(8,
+        plotOutput("crime_type_plot", width = 800, height = 500),
+        hr(),
+        fluidRow(
+          textOutput("summaryText")
+        )
+      )
     ),
     
   tabPanel("Crime Trend History",

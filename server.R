@@ -6,6 +6,7 @@ library(ggplot2)
 library(stringr)
 library(RColorBrewer)
 library(colorRamps)
+library(DT)
 library(lubridate)
 source('scripts/HomePageData.R')
 
@@ -77,6 +78,44 @@ shinyServer(function(input, output) {
       scale_y_continuous(limits = c(0, 600)) + theme(plot.title = element_text(face = "bold", size = 20)) +
       coord_flip()
   })
+  
+  output$crime_type_plot <- renderPlot({
+    filtered_occurances <- group_by(large_map_set, Primary.Offense.Description) %>% summarise(count = n())
+    colorCount = length(filtered_occurances$Primary.Offense.Description)
+    
+    plot <- ggplot(filtered_occurances, aes(Primary.Offense.Description, count, fill = Primary.Offense.Description)) + 
+      geom_bar(stat = "identity", width = .5) + ggtitle("Crime Types in The Greater Seattle Area") + 
+      theme(axis.text.x = element_text(size = 6, angle = 90), plot.title = element_text(face = "bold", 
+                                                                                        size = 20, hjust = +0.5)) + 
+      geom_text(aes(label=count), vjust = -0.55) + xlab("Crime Types") + ylab("Count") + scale_fill_manual(
+        values = colorRampPalette(brewer.pal(8, "Accent"))(colorCount), guide = guide_legend(title = "Crime Types" , ncol = 2))
+    print(plot)
+  })
+  
+  output$summaryText <- renderText({
+    paste("There has been an increase in the number of crimes committed in the last decade in the Greater Seattle Area.",
+          "In 2010, there were 43,971 crimes commited while in 2017 there were 50663 crimes committed.", 
+          "When looking at the just the numbers, it may seem that the crime rate has increased significantly but",
+          "the population increase in Seattle may be the influence of the increase. In 2010 there were just 610,000 people",
+          "living within the city borders of Seattle and that number increased to 725,000 in 2017. The crime rate increase",
+          "from 2010-2017 was roughly +15% while the population increase was roughly +19%. Relatively, the incease in crime",
+          "rate is lower than the increase in population and the crime rate per capita has actually decreased from 2010 to",
+          "2017.")
+  })
+  
+  
+  
+  output$crimeType <- DT::renderDataTable({
+    filtered_data <- large_map_set %>% select(Neighborhood, Occurred.Date, Occurred.Time,
+                                              Crime.Subcategory, Primary.Offense.Description)
+    DT::datatable(filtered_data, options = list(pageLength = 10, scrollX = TRUE, scrollY = '450px')) %>% formatStyle(names(filtered_data))
+  })
+  
+  output$resourcesText <- renderText({
+    paste("Population data in Crime Type History found from ",
+    "https://www.seattle.gov/police/information-and-data/crime-dashboard")
+  })
+  
   output$trend_Plot <- renderPlot({
     if(input$crimechoice != "ALL CRIME"){
       crime_frame <- filter(large_map_set, Primary.Offense.Description == input$crimechoice)
