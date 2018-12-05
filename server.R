@@ -116,7 +116,6 @@ shinyServer(function(input, output) {
     "https://www.seattle.gov/police/information-and-data/crime-dashboard")
   })
   
-})
   output$trend_Plot <- renderPlot({
     if(input$crimechoice != "ALL CRIME"){
       crime_frame <- filter(large_map_set, Primary.Offense.Description == input$crimechoice)

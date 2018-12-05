@@ -58,17 +58,6 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
           textOutput("summaryText")
         )
       )
-
-    column(4
-           #Data Table here Use 
-    ),
-    column(8,
-           # Input plot call here
-           hr(),
-           fluidRow(
-             # Input paragraph here
-           )
-    )
     ),
     
   tabPanel("Crime Trend History",
@@ -106,11 +95,6 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
     ),
     
     tabPanel("Resources",
-      fluidRow(
-        textOutput("resourcesText")
-      )
-    )
-    
       fluidPage(
         verticalLayout(
           fluidRow(
