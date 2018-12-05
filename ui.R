@@ -46,18 +46,13 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
   ),
     
     tabPanel("Crime Type History",
-      column(4,
-             
-        #Data Table here Use (kable)
-        DT::dataTableOutput("crimeType", width = "100%")
-
-      ),
-      column(8,
-        plotOutput("crime_type_plot", width = 800, height = 500),
-        hr(),
+      verticalLayout(
+        plotOutput("crime_type_plot"),
         fluidRow(
           textOutput("summaryText")
-        )
+        ),
+        hr(),
+        DT::dataTableOutput("crimeType", width = "100%")
       )
     ),
     

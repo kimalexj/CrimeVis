@@ -80,13 +80,14 @@ shinyServer(function(input, output) {
   })
   
   output$crime_type_plot <- renderPlot({
+    large_map_set$Primary.Offense.Description <- sub("^$", "UNKNOWN", large_map_set$Primary.Offense.Description)
     filtered_occurances <- group_by(large_map_set, Primary.Offense.Description) %>% summarise(count = n())
     colorCount = length(filtered_occurances$Primary.Offense.Description)
     
     plot <- ggplot(filtered_occurances, aes(Primary.Offense.Description, count, fill = Primary.Offense.Description)) + 
       geom_bar(stat = "identity", width = .5) + ggtitle("Crime Types in The Greater Seattle Area") + 
-      theme(axis.text.x = element_text(size = 6, angle = 90), plot.title = element_text(face = "bold", 
-                                                                                        size = 20, hjust = +0.5)) + 
+      theme(axis.text.x = element_text(size = 10, angle = 90), plot.title = element_text(face = "bold", 
+                                                                                        size = 20, hjust = 0.5)) + 
       geom_text(aes(label=count), vjust = -0.55) + xlab("Crime Types") + ylab("Count") + scale_fill_manual(
         values = colorRampPalette(brewer.pal(8, "Accent"))(colorCount), guide = guide_legend(title = "Crime Types" , ncol = 2))
     print(plot)
