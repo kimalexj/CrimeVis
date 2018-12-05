@@ -21,6 +21,19 @@ proper_neighborhood <- function(input) {
   }
 }
 
+data_config <- function() {
+  data_occurred <- as.Date(large_map_set$Occurred.Date, format = "%m/%d/%Y")
+  data_reported <- as.Date(large_map_set$Reported.Date, format = "%m/%d/%Y")
+  
+  data2 <- large_map_set %>%
+    select(-Report.Number) %>%
+    mutate(Occurred.Date = data_occurred) %>%
+    mutate(Reported.Date = data_reported) %>% 
+    select(Occurred.Date, Occurred.Time, Reported.Date, Reported.Time, Primary.Offense.Description)
+  
+  data2
+}
+
 shinyServer(function(input, output) {
   
   filtered_time_check <- reactive({
@@ -141,16 +154,4 @@ shinyServer(function(input, output) {
   output$table <- renderDataTable(data_config(), options = list(
     scrollY = '450px', pageLength = 10, scrollX = TRUE)
   )
-  
-  data_config <- reactive({
-    data_occurred <- as.Date(large_map_set$Occurred.Date, format = "%m/%d/%Y")
-    data_reported <- as.Date(large_map_set$Reported.Date, format = "%m/%d/%Y")
-    
-  data2 <- large_map_set %>%
-    select(-Report.Number) %>%
-    mutate(Occurred.Date = data_occurred) %>%
-    mutate(Reported.Date = data_reported)
-  
-  data2
-  })
 })

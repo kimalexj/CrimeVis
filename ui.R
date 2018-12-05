@@ -82,7 +82,7 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
               trends in our community we can enact change together and make our community a safer place to live."
               ,style = "font-family: 'times'; font-size: 15px"),
             hr(),
-            dataTableOutput("table")
+            DT::dataTableOutput("table", width = "100%")
           )
       )
     ),
