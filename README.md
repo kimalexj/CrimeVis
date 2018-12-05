@@ -36,3 +36,6 @@ that you don't really want to type in terminal so if you want to download that t
 ## Questions
 Either create an issue so that we can respond or just message anyone, I'm sure all of us will be able to come up with
 something. 
+
+## Hosting
+At this [link](https://kimalexj.shinyapps.io/CrimeVis/)
