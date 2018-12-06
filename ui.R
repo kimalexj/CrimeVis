@@ -49,7 +49,9 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
       verticalLayout(
         plotOutput("crime_type_plot"),
         fluidRow(
-          textOutput("summaryText")
+          textOutput("summaryText"),
+          br(),
+          p(" - Analysis also derrived from https://www.seattle.gov/police/information-and-data/crime-dashboard")
         ),
         hr(),
         DT::dataTableOutput("crimeType", width = "100%")
