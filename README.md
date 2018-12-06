@@ -1,6 +1,8 @@
 # CrimeVis
 Info201 Final project repository
 
+Link to the [app](https://kimalexj.shinyapps.io/CrimeVis/)
+
 Link to the [dataset](https://catalog.data.gov/dataset/crime-data-76bd0)
 # Git Collaboration 
 - Always make your commit messages meaningful and not ambiguous or vague.
@@ -36,6 +38,3 @@ that you don't really want to type in terminal so if you want to download that t
 ## Questions
 Either create an issue so that we can respond or just message anyone, I'm sure all of us will be able to come up with
 something. 
-
-## Hosting
-At this [link](https://kimalexj.shinyapps.io/CrimeVis/)
